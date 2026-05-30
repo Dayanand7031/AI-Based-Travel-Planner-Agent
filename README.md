@@ -1,90 +1,200 @@
-# ✈️🧳 AI Travel Agent - Powered by LangGraph: A Practical Use Case 🌍
-Welcome to the AI Travel Agent repository! This project demonstrates how to leverage LangGraph for building a smart travel assistant that uses multiple language models (LLMs) to handle tasks such as finding flights, booking hotels, and sending personalized emails. The agent is designed to interact with users, invoke necessary tools, and provide a seamless travel planning experience.
+# ✈️ AI-Based Travel Planner Agent
 
-## **Features**
+An intelligent AI-powered travel planning assistant built using LangGraph, Streamlit, OpenRouter/OpenAI, SerpAPI, and SendGrid.
 
-- **Stateful Interactions**: The agent remembers user interactions and continues from where it left off, ensuring a smooth user experience.
-- **Human-in-the-Loop**: Users have control over critical actions, like reviewing travel plans before emails are sent.
-- **Dynamic LLM Usage**: The agent intelligently switches between different LLMs for various tasks, like tool invocation and email generation.
-- **Email Automation**: Automatically generates and sends detailed travel plans to users via email.
+This project demonstrates how to build production-style AI agents capable of:
 
-## Getting Started
-Clone the repository, set up the virtual environment, and install the required packages
+* flight and hotel discovery
+* tool calling
+* human-in-the-loop workflows
+* observability and tracing
+* automated email generation
 
-1. git clone git@github.com:nirbar1985/ai-travel-agent.git
+---
 
-1. ( In case you have python version 3.11.9 installed in pyenv)
-   ```shell script
-   pyenv local 3.11.9
-   ```
+# 🚀 Features
 
-1. Install dependencies
-    ```shell script
-    poetry install --sync
-    ```
+* Stateful AI agent interactions
+* Multi-tool orchestration using LangGraph
+* Flight search using Google Flights (SerpAPI)
+* Hotel recommendations using Google Hotels (SerpAPI)
+* Human-in-the-loop approval flow
+* AI-generated HTML travel emails
+* LangSmith observability support
+* OpenRouter free-model support
+* Streamlit frontend UI
 
-1. Enter virtual env by:
-    ```shell script
-    poetry shell
-    ```
+---
 
-## **Store Your API Keys**
+# 🛠 Improvements Added
 
-1. Create a `.env` file in the root directory of the project.
-2. Add your API keys and environment variables to the `.env` file:
-    ```plaintext
-    OPENAI_API_KEY=your_openai_api_key
-    SERPAPI_API_KEY=your_serpapi_api_key
-    SENDGRID_API_KEY=your_sendgrid_api_key
+* Integrated OpenRouter support
+* Added robust API error handling
+* Improved flight and hotel tool resilience
+* Added LangSmith observability
+* Added SendGrid email integration
+* Improved Streamlit deployment compatibility
 
-    # Observability variables
-    LANGCHAIN_API_KEY=your_langchain_api_key
-    LANGCHAIN_TRACING_V2=true
-    LANGCHAIN_PROJECT=ai_travel_agent
-    ```
+---
 
-Make sure to replace the placeholders (`your_openai_api_key`, `your_serpapi_api_key`, `your_langchain_api_key`, `your_sendgrid_api_key`) with your actual keys.
-This version includes the necessary environment variables for OpenAI, SERPAPI, LangChain, and SendGrid and the LANGCHAIN_TRACING_V2 and LANGCHAIN_PROJECT configurations.
+# 🧠 Supported LLM Providers
 
-### How to Run the Chatbot
-To start the chatbot, run the following command:
+This project supports:
+
+* OpenAI
+* OpenRouter (recommended free option)
+
+Example `.env` configuration:
+
+```env
+OPENAI_API_KEY=your_openrouter_or_openai_key
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
 ```
-streamlit run app.py
+
+### Recommended Free Models
+
+* `openrouter/auto`
+* `meta-llama/llama-3.3-8b-instruct:free`
+* `google/gemma-3-27b-it:free`
+
+---
+
+# 📦 Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/Dayanand7031/AI-Based-Travel-Planner-Agent.git
+cd AI-Based-Travel-Planner-Agent
 ```
 
-### Using the Chatbot
-Once launched, simply enter your travel request. For example:
-> I want to travel to Amsterdam from Madrid from October 1st to 7th. Find me flights and 4-star hotels.
+Install dependencies:
 
+```bash
+poetry install --no-root
+```
 
-![photo1](https://github.com/user-attachments/assets/eb12d697-a445-4b13-b084-d2052f91d7bc)
+Activate virtual environment:
 
-The chatbot will generate results that include logos and links for easy navigation.
+```bash
+poetry shell
+```
 
-> **Note**: The data is fetched via Google Flights and Google Hotels APIs. There’s no affiliation or promotion of any particular brand.
+---
 
+# 🔑 Environment Variables
 
-#### Example Outputs
+Create a `.env` file in the project root:
 
-- Flight and hotel options with relevant logos and links for easy reference:
+```env
+OPENAI_API_KEY=your_openrouter_or_openai_key
+OPENAI_BASE_URL=https://openrouter.ai/api/v1
 
-![photo2](https://github.com/user-attachments/assets/741e010c-22cf-4d31-a518-441b076ec58f)
+SERPAPI_API_KEY=your_serpapi_key
 
-![photo3](https://github.com/user-attachments/assets/a29173c7-852d-41ab-b3fe-94e6cca83c78)
+SENDGRID_API_KEY=your_sendgrid_key
+FROM_EMAIL=your_email@gmail.com
+TO_EMAIL=your_email@gmail.com
+EMAIL_SUBJECT=AI Travel Plan
 
+LANGCHAIN_API_KEY=your_langsmith_key
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_PROJECT=ai_travel_agent
+```
 
-#### Email Integration
-The email integration is implemented using the **human-in-the-loop** feature, allowing you to stop the agent execution and return control back to the user, providing flexibility in managing the travel data before sending it via email.
+---
 
-![photo4](https://github.com/user-attachments/assets/53775c87-7881-40c3-9b23-2885ed020e46)
+# ▶️ Run Locally
 
-- Travel data formatted in HTML, delivered straight to your inbox:
-![photo5](https://github.com/user-attachments/assets/02641ce1-b303-4020-9849-7d77f596a6ba)
-![photo6](https://github.com/user-attachments/assets/1c3d8a35-148d-4144-829a-b1db6e3b3dde)
+```bash
+poetry run streamlit run app.py
+```
 
-## Learn More
-For a detailed explanation of the underlying technology, check out the full article on Medium:
-[Building Production-Ready AI Agents with LangGraph: A Real-Life Use Case](https://medium.com/cyberark-engineering/building-production-ready-ai-agents-with-langgraph-a-real-life-use-case-7bda34c7f4e4))
+---
 
-## License
-Distributed under the MIT License. See LICENSE.txt for more information.
+# 🌍 Example Prompt
+
+```text
+I am currently in New Delhi and I want a one-month travel plan for Paris in June 2026.
+```
+
+---
+
+# 📊 Architecture
+
+* Streamlit Frontend
+* LangGraph Agent Orchestration
+* Tool Calling System
+* OpenRouter/OpenAI Integration
+* SerpAPI Integration
+* SendGrid Email Automation
+* LangSmith Observability
+
+---
+
+# 🖼 Screenshots
+
+## Home Page
+
+![Home Page](docs/images/home-page.png)
+
+## Travel Results
+
+![Travel Results](docs/images/travel-results.png)
+
+## Email Output
+
+![Email Output](docs/images/email-output.png)
+
+## LangSmith Tracing
+
+![LangSmith](docs/images/langsmith-trace.png)
+
+---
+
+# ☁️ Deployment
+
+## Streamlit Cloud
+
+1. Push project to GitHub
+2. Create `requirements.txt`
+3. Deploy using Streamlit Cloud
+4. Add secrets in Streamlit dashboard
+
+Run locally:
+
+```bash
+poetry run streamlit run app.py
+```
+
+---
+
+# 📈 Observability with LangSmith
+
+This project supports:
+
+* LLM tracing
+* tool monitoring
+* graph execution visualization
+* debugging AI workflows
+
+---
+
+# 📧 Email Integration
+
+SendGrid is used to generate and deliver AI-generated HTML travel plans directly to the user’s inbox.
+
+---
+
+# ⚠️ Notes
+
+* Flight and hotel data are fetched using Google Flights and Google Hotels APIs via SerpAPI.
+* This project is intended for educational and portfolio purposes.
+
+---
+
+# 👨‍💻 Maintainer
+
+Maintained and customized by Dayanand Chauhan.
+
+---
