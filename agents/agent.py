@@ -123,7 +123,11 @@ class Agent:
 
     def __init__(self):
         self._tools = {t.name: t for t in TOOLS}
-        self._tools_llm = ChatOpenAI(model='gpt-4o').bind_tools(TOOLS)
+        self._tools_llm = ChatOpenAI(
+        model='openrouter/auto',
+        base_url=os.getenv("OPENAI_BASE_URL"),
+        api_key=os.getenv("OPENAI_API_KEY")
+        ).bind_tools(TOOLS)
 
         builder = StateGraph(AgentState)
         builder.add_node('call_tools_llm', self.call_tools_llm)
@@ -148,7 +152,12 @@ class Agent:
 
     def email_sender(self, state: AgentState):
         print('Sending email')
-        email_llm = ChatOpenAI(model='gpt-4o', temperature=0.1)  # Instantiate another LLM
+        email_llm = ChatOpenAI(
+        model='openrouter/auto',
+        base_url="https://openrouter.ai/api/v1",
+        api_key=os.getenv("OPENAI_API_KEY"),
+        temperature=0.1
+        )  # Instantiate another LLM
         email_message = [SystemMessage(content=EMAILS_SYSTEM_PROMPT), HumanMessage(content=state['messages'][-1].content)]
         email_response = email_llm.invoke(email_message)
         print('Email content:', email_response.content)

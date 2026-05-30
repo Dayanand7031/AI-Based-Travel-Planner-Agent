@@ -48,9 +48,26 @@ def flights_finder(params: FlightsInput):
         'children': params.children
     }
 
+    # try:
+    #     search = serpapi.search(params)
+    #     results = search.data['best_flights']
+    # except Exception as e:
+    #     results = str(e)
+    # return results
     try:
         search = serpapi.search(params)
-        results = search.data['best_flights']
+
+        results = search.data
+
+        if 'best_flights' not in results:
+            return {
+                "error": "No flights found",
+                "response": results
+            }
+
+        return results['best_flights']
+
     except Exception as e:
-        results = str(e)
-    return results
+        return {
+        "error": str(e)
+        }

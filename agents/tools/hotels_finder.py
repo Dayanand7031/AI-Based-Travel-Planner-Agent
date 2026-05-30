@@ -49,6 +49,20 @@ def hotels_finder(params: HotelsInput):
         'hotel_class': params.hotel_class
     }
 
-    search = serpapi.search(params)
-    results = search.data
-    return results['properties'][:5]
+    try:
+        search = serpapi.search(params)
+
+        results = search.data
+
+        if 'properties' not in results:
+            return {
+                "error": "No hotel properties found",
+                "response": results
+            }
+
+        return results['properties'][:5]
+
+    except Exception as e:
+        return {
+        "error": str(e)
+        }
