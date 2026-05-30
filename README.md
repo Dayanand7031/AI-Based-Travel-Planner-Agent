@@ -10,6 +10,8 @@ This project demonstrates how to build production-style AI agents capable of:
 * observability and tracing
 * automated email generation
 
+# Live Url ->> https://ai-based-travel-planner-agent-dayanand.streamlit.app/
+
 ---
 
 # 🚀 Features
